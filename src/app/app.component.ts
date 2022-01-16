@@ -10,7 +10,7 @@ export class AppComponent {
   name = 'Angular   6';
   canvas: any;
   myVariable = false;
-  e = 0;
+  z_val: 0;
   ctx: any;
   @ViewChild('mychart') mychart;
 
@@ -29,14 +29,14 @@ export class AppComponent {
             borderColor: 'rgb(255, 99, 132)',
             fill: true,
             data: [
-              { x: 1, y: 2 },
-              { x: 2500, y: 2.5 },
-              { x: 3000, y: 5 },
-              { x: 3400, y: 4.75 },
-              { x: 3600, y: 4.75 },
-              { x: 5200, y: 6 },
-              { x: 6000, y: 9 },
-              { x: 7100, y: 6 },
+              { x: 1, y: 2, z: 0.1 },
+              { x: 2500, y: 2.5, z: 0.2 },
+              { x: 3000, y: 5, z: 0.3 },
+              { x: 3400, y: 4.75, z: 0.4 },
+              { x: 3600, y: 4.75, z: 0.5 },
+              { x: 5200, y: 6, z: 0.6 },
+              { x: 6000, y: 9, z: 0.7 },
+              { x: 7100, y: 6, z: 0.8 },
             ],
           },
         ],
@@ -82,38 +82,13 @@ export class AppComponent {
           ],
         },
         events: ['click'],
-        onClick: function (c, i) {
-          var oh = myChart.getElementAtEvent(
-            c,
-            'nearest',
-            { intersect: true },
-            false
-          );
-          console.log(oh);
-          console.log(c, i);
-          //e = i[0];
-          //console.log(e._index)
-          //var x_value = this.data.labels[e._index];
-          //var y_value = this.data.datasets[0].data[e._index];
-          //console.log(x_value);
-          //console.log(y_value);
+        onClick: function (c, i, z_val) {
+          var e = i[0];
+          var values = this.data.datasets[0].data[e._index];
+          z_val = values['z'];
+          console.log(z_val);
         },
       },
     });
-
-    //function handleClick(evt)
-    //{
-    //var activeElement = myChart.getElementAtEvent(evt);
-    //    self.myVariable = myChart.getElementAtEvent(evt);
-    //};
-
-    const self = this;
-    console.log('A', self.myVariable);
-    //this.canvas.onmousemove = function (e) {
-    //  console.log('onMouseMove', self.myVariable);
-    //};
-    this.canvas.onmousedown = function (e) {
-      console.log('onmousedown', self.myVariable);
-    };
   }
 }
